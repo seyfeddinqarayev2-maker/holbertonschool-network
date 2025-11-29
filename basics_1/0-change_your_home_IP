@@ -1,9 +1,13 @@
-#!/usr/bin/env bash
-# Configures an Ubuntu server to change localhost and facebook.com IP resolution
+#!/bin/bash
+# Script that configures localhost and facebook.com IPs
 
-cp /etc/hosts ~/hosts.new
-sed -i '/localhost/d' ~/hosts.new
-sed -i '/facebook.com/d' ~/hosts.new
-echo "127.0.0.2 localhost" >> ~/hosts.new
-echo "8.8.8.8 facebook.com" >> ~/hosts.new
-cp -f ~/hosts.new /etc/hosts
+# Backup /etc/hosts before modifying
+cp /etc/hosts /etc/hosts.bak
+
+# Remove existing entries for localhost and facebook.com to avoid duplicates
+sed -i '/localhost/d' /etc/hosts
+sed -i '/facebook.com/d' /etc/hosts
+
+# Add new entries
+echo "127.0.0.2 localhost" >> /etc/hosts
+echo "8.8.8.8 facebook.com" >> /etc/hosts
